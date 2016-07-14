@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CursoConsoleApplication;
 
 namespace CursoConsole
 {
@@ -11,9 +12,10 @@ namespace CursoConsole
     {
         static void Main(string[] args)
         {
-            List<string> ListCli = new List<string>();
+            List<Cliente> ListCli = new List<Cliente>();
+            Cliente cliente = new Cliente();
             ArrayList ListPrd = new ArrayList();
-            String cliente = "", produto = "";
+            String  produto = "";
             int opcao, operacao;
             do
             {
@@ -49,15 +51,27 @@ namespace CursoConsole
                     if (operacao.Equals(1))
                     {
                         Console.Write("Informe o nome:");
-                        cliente = Console.ReadLine();
+                        cliente.nome = Console.ReadLine();                        
+                        Console.Write("Informe o sexo :");
+                        cliente.sexo = Convert.ToChar(Console.ReadLine());
+                        Console.Write("Informe o Idade: ");
+                        cliente.idade = Convert.ToInt32 (Console.ReadLine());
+                        Console.Write("Informe o endereço :");
+                        cliente.endereco = Console.ReadLine();
+                        Console.Write("Informe o Telefone: ");
+                        cliente.telefone = Convert.ToInt64(Console.ReadLine());
                         ListCli.Add(cliente);
                         Console.WriteLine("Cliente cadastrado com sucesso!");
                     }
                     else if ((operacao.Equals(2)))
                     {
-                        foreach (String cli in ListCli)
+                        foreach (Cliente cli in ListCli)
                         {
-                            Console.WriteLine("Nome do Cliente: " + cli);
+                            Console.WriteLine("Nome do Cliente: " + cli.nome);
+                            Console.WriteLine("Sexo do Cliente: " + cli.sexo);
+                            Console.WriteLine("Idade do Cliente: " + cli.idade);
+                            Console.WriteLine("Endereço do Cliente: " + cli.endereco);
+                            Console.WriteLine("Telefone do Cliente: " + cli.telefone);
                         }
                         Console.ReadKey();
                     }
@@ -68,7 +82,7 @@ namespace CursoConsole
                         foreach (var item in ListCli)
                         {
                             if (item.Equals(nomeAux))
-                                Console.WriteLine("Achei {0}!", item);
+                                Console.WriteLine("Achei {0}!", item.nome);
                         }
                         Console.ReadKey();
                     }
@@ -76,16 +90,20 @@ namespace CursoConsole
                     {
                         Console.WriteLine("Informe nome da remoção: ");
                         String nomeAux = Console.ReadLine();
-                        bool removeu = ListCli.Remove(nomeAux);
-                        if (removeu)
+                        foreach (var item in ListCli)
+                        {
+                            if (item.nome.Equals(nomeAux)){
+                            ListCli.Remove(item);
                             Console.WriteLine("Cliente removido com sucesso!");
+                            }
                         Console.ReadKey();
+                            }
                     }
                     else
                     {
                         Console.WriteLine("Opção Inválida!");
                     }
-                }
+                        }
                 else if ((opcao.Equals(2)))
                 {
                     operacao = Convert.ToInt32(Console.ReadLine());
